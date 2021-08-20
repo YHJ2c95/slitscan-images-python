@@ -21,7 +21,7 @@ img = np.zeros((clip.size[1], clip.size[0], 3), dtype='uint8')
 currentX = 0
 slitwidth = 1
 
-slitpoint = clip.size[0] // 2
+slitpoint =  750 #640 #clip.size[0] // 2
 
 # generate our target fps with width / duration
 target_fps = clip.size[0] / clip.duration
@@ -30,6 +30,8 @@ for i in clip.iter_frames(fps=target_fps, dtype='uint8'):
     if currentX < (clip.size[0] - slitwidth):
         img[:,currentX:currentX + slitwidth,:] = i[:,slitpoint:slitpoint+slitwidth,:]
     currentX += slitwidth
+    if currentX == 3000//4:
+        break
 
 output = Image.fromarray(img)
-output.save('output_post.jpg')
+output.save('output_post.png')
